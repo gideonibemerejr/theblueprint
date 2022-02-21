@@ -15,3 +15,9 @@ export const getEvents = (url) => {
     .get(`${url}?${params}`)
     .then((res) => ({ events: res.data.data, meta: res.data.meta }));
 };
+
+export const createEvent = (newEvent) => {
+  return httpClient
+    .post(`/blue-sheet-event`, newEvent)
+    .then((res) => console.log('THE RESPONSE', res));
+};

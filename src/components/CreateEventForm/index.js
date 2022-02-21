@@ -7,6 +7,7 @@ import { CREATE_EVENT_DEFAULTS, RSVP_STATUSES } from '../../_constants';
 import { DatePicker, Select, Switch, TimePicker } from '..';
 import eventSanitizer from '../../utils/eventSanitizer';
 import { useEffect } from 'react';
+import { createEvent } from '../../services/events';
 
 const CreateEventForm = ({ setOpen }) => {
   const {
@@ -15,7 +16,7 @@ const CreateEventForm = ({ setOpen }) => {
     handleSubmit,
     watch,
     reset,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm({
     defaultValues: CREATE_EVENT_DEFAULTS,
   });
@@ -27,9 +28,12 @@ const CreateEventForm = ({ setOpen }) => {
     event.preventDefault();
     let sanitizedData = eventSanitizer(data);
 
-    console.log('sanitizedData', sanitizedData);
     try {
-      const newEvent = await mutate('/blue-sheet-events', console.log(data));
+      const newEvent = await mutate(
+        '/blue-sheet-events',
+        createEvent(sanitizedData)
+      );
+      console.log('the new one', newEvent);
     } catch (error) {
       console.log('the error', error);
     }
@@ -298,10 +302,11 @@ const CreateEventForm = ({ setOpen }) => {
           Cancel
         </button>
         <button
+          disabled={isSubmitting}
           type='submit'
           className='ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue hover:bg-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue'
         >
-          Save
+          Create event
         </button>
       </div>
     </form>
