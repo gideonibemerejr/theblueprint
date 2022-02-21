@@ -8,7 +8,7 @@ const HomePage = () => {
   if (auth?.user?.email && !auth?.user?.firstName) {
     return <Navigate to='/complete-registration' />;
   }
-  return auth.isAdmin ? <AdminDashboard /> : <div>Logging in Normmy</div>;
+  return auth.isAdmin ? <Navigate to='/admin' /> : <div>Logging in Normmy</div>;
 };
 
 export default HomePage;

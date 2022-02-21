@@ -1,25 +1,50 @@
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../utils/auth';
 
-export default function AdminHeader() {
+export default function AdminHeader({ children }) {
+  const { pathname } = useLocation();
   const { user } = useAuth();
+  const tabs = [
+    {
+      name: 'Spreadsheets',
+      to: 'spreadsheets',
+      current: pathname === '/admin/spreadsheets',
+    },
+    {
+      name: 'Events',
+      to: 'events',
+      current: pathname === '/admin/events',
+    },
+  ];
   return (
-    <div className='pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between'>
-      <h3 className='text-3xl leading-6 font-medium text-white'>
-        Welcome back, {user?.firstName}!
-      </h3>
-      <div className='mt-3 flex sm:mt-0 sm:ml-4'>
-        {/* <button
-          type='button'
-          className='inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue'
-        >
-          Share
-        </button> */}
-        <button
-          type='button'
-          className='ml-3 inline-flex items-center px-4 py-2 border border-white rounded-md shadow-sm text-sm font-medium text-white hover:text-blue bg-blue hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue'
-        >
-          Add a new event
-        </button>
+    <div className='relative border-b border-gray-200 sm:pb-0'>
+      <div className='md:flex md:items-center md:justify-between'>
+        <h3 className='text-3xl leading-6 font-medium text-white mb-4'>
+          Welcome back, {user?.firstName}!
+        </h3>
+        {children}
+      </div>
+      <div className='mt-4'>
+        <div className='block'>
+          <nav className='-mb-px flex space-x-8'>
+            {tabs.map((tab) => (
+              <Link
+                key={tab.name}
+                to={tab.to}
+                className={`${
+                  tab.current
+                    ? 'border-white text-white'
+                    : 'border-transparent text-gray-300 hover:text-gray-500 hover:border-white'
+                }
+                  'whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm'
+                `}
+                aria-current={tab.current ? 'page' : undefined}
+              >
+                {tab.name}
+              </Link>
+            ))}
+          </nav>
+        </div>
       </div>
     </div>
   );

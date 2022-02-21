@@ -1,17 +1,51 @@
+import { useSWRConfig } from 'swr';
 import { useForm } from 'react-hook-form';
+
 import { Dialog } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
-import { LinkIcon, QuestionMarkCircleIcon } from '@heroicons/react/solid';
+import { CREATE_EVENT_DEFAULTS, RSVP_STATUSES } from '../../_constants';
+import { DatePicker, Select, Switch, TimePicker } from '..';
+import eventSanitizer from '../../utils/eventSanitizer';
+import { useEffect } from 'react';
 
 const CreateEventForm = ({ setOpen }) => {
   const {
+    control,
     register,
     handleSubmit,
     watch,
-    formState: { errors },
-  } = useForm();
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm({
+    defaultValues: CREATE_EVENT_DEFAULTS,
+  });
+  const { mutate } = useSWRConfig();
+
+  const showPrice = watch('rsvpStatus');
+
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
+    let sanitizedData = eventSanitizer(data);
+
+    console.log('sanitizedData', sanitizedData);
+    try {
+      const newEvent = await mutate('/blue-sheet-events', console.log(data));
+    } catch (error) {
+      console.log('the error', error);
+    }
+  };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset(CREATE_EVENT_DEFAULTS);
+    }
+  }, [isSubmitSuccessful, reset]);
+
   return (
-    <form className='h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl'>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl'
+    >
       <div className='flex-1 h-0 overflow-y-auto'>
         <div className='py-6 px-4 bg-indigo-700 sm:px-6 bg-gray-200'>
           <div className='flex items-center justify-between'>
@@ -38,7 +72,17 @@ const CreateEventForm = ({ setOpen }) => {
         </div>
         <div className='flex-1 flex flex-col justify-between'>
           <div className='px-4 divide-y divide-gray-200 sm:px-6'>
-            <div className='space-y-6 pt-6 pb-5'>
+            <div className='pt-4 pb-2 flex justify-center items-center'>
+              <div className='mt-1 w-full'>
+                <Switch
+                  control={control}
+                  name='staffPick'
+                  label='Staff Pick'
+                  description='The Dirty Team™ stamp of approval'
+                />
+              </div>
+            </div>
+            <div className='space-y-6 pt-4 pb-2'>
               <div>
                 <label
                   htmlFor='name'
@@ -55,7 +99,25 @@ const CreateEventForm = ({ setOpen }) => {
                   />
                 </div>
               </div>
-              <div className='space-y-6 pt-6 pb-5'>
+              <div className='space-y-6 pt-4 pb-2'>
+                <div>
+                  <label
+                    htmlFor='link'
+                    className='block text-sm font-medium text-gray-900'
+                  >
+                    Link
+                  </label>
+                  <div className='mt-1'>
+                    <input
+                      {...register('link', { required: true })}
+                      type='text'
+                      required
+                      className='block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md'
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className='space-y-6 pt-2 pb-2'>
                 <div>
                   <label
                     htmlFor=''
@@ -73,42 +135,140 @@ const CreateEventForm = ({ setOpen }) => {
                   </div>
                 </div>
               </div>
-              <div className='space-y-6 pt-6 pb-5'>
+              <div className='space-y-6 pt-4 pb-2'>
                 <div>
                   <label
-                    htmlFor=''
+                    htmlFor='rsvpStatus'
                     className='block text-sm font-medium text-gray-900'
-                  ></label>
+                  >
+                    RSVP status
+                  </label>
                   <div className='mt-1'>
-                    <input
-                      type='text'
-                      required
-                      className='block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md'
+                    <Select
+                      options={RSVP_STATUSES}
+                      control={control}
+                      isClearable
+                      name='rsvpStatus'
                     />
                   </div>
                 </div>
               </div>
-                {/* 
-                    freeDrinks
-                    freeFood
-                    staffPick
-                    isAllWeek
-
-
-                    startDate
-                    endDate
-                    startTime
-                    endTime
-
-                    notes
-                    link
-
-                    rsvpStatus
-
-                
-                    
-                
-                */}
+              {showPrice === 'open_with_price' && (
+                <div>
+                  <label
+                    htmlFor='price'
+                    className='block text-sm font-medium text-gray-700'
+                  >
+                    Price
+                  </label>
+                  <div className='mt-1 relative rounded-md shadow-sm'>
+                    <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                      <span className='text-gray-500 sm:text-sm'>$</span>
+                    </div>
+                    <input
+                      type='text'
+                      {...register('price')}
+                      className='focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md'
+                      placeholder='0.00'
+                      aria-describedby='price-currency'
+                    />
+                    <div className='absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none'>
+                      <span
+                        className='text-gray-500 sm:text-sm'
+                        id='price-currency'
+                      >
+                        USD
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div className='pt-4 pb-2 flex justify-center items-center'>
+                <div className='mt-1 w-full'>
+                  <Switch
+                    control={control}
+                    name='isAllWeek'
+                    label='All week?'
+                    description='The WHOLE DAMN FESTIVAL'
+                  />
+                </div>
+              </div>
+              <div className='pt-4 pb-2 flex justify-center items-center'>
+                <div className='md:w-1/2'>
+                  <label
+                    htmlFor='startDate'
+                    className='block text-sm font-medium text-gray-900'
+                  >
+                    Start date
+                  </label>
+                  <div className='mt-1'>
+                    <DatePicker control={control} name='startDate' />
+                  </div>
+                </div>
+                <div className='md:w-1/2'>
+                  <label
+                    htmlFor='endDate'
+                    className='block text-sm font-medium text-gray-900'
+                  >
+                    End date
+                  </label>
+                  <div className='mt-1'>
+                    <DatePicker control={control} name='endDate' />
+                  </div>
+                </div>
+              </div>
+              <div className='pt-4 pb-2 flex justify-center items-center'>
+                <div className='md:w-1/2'>
+                  <label
+                    htmlFor='startDate'
+                    className='block text-sm font-medium text-gray-900'
+                  >
+                    Start time
+                  </label>
+                  <div id='start-picker' className='mt-1'>
+                    <TimePicker
+                      control={control}
+                      name='startTime'
+                      containerId='start-picker'
+                    />
+                  </div>
+                </div>
+                <div className='md:w-1/2'>
+                  <label
+                    htmlFor='endTime'
+                    className='block text-sm font-medium text-gray-900'
+                  >
+                    End Time
+                  </label>
+                  <div id='end-picker' className='mt-1'>
+                    <TimePicker
+                      control={control}
+                      name='endTime'
+                      containerId='end-picker'
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className='pt-4 pb-2 flex justify-center items-center'>
+                <div className='mt-1 w-full'>
+                  <Switch
+                    control={control}
+                    name='freeDrinks'
+                    label='Free drinks?'
+                    description='Booze, rain water, liquid deaths? The whole lot.'
+                  />
+                </div>
+              </div>
+              <div className='pt-4 pb-2 flex justify-center items-center'>
+                <div className='mt-1 w-full'>
+                  <Switch
+                    control={control}
+                    name='freeFood'
+                    label='Free food?'
+                    description="Burgers, dumplings, tacos? Anything but Torchy's."
+                  />
+                </div>
+              </div>
               <div>
                 <label
                   htmlFor='notes'
@@ -118,8 +278,7 @@ const CreateEventForm = ({ setOpen }) => {
                 </label>
                 <div className='mt-1'>
                   <textarea
-                    id='notes'
-                    name='notes'
+                    {...register('notes')}
                     rows={4}
                     className='block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md'
                     defaultValue={''}

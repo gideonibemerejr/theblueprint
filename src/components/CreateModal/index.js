@@ -34,7 +34,7 @@ export default function CreateModal({ open, setOpen, formType }) {
               leaveFrom='translate-x-0'
               leaveTo='translate-x-full'
             >
-              <div className='w-screen max-w-md'>{renderForm(formType)}</div>
+              <div className='w-screen max-w-lg'>{renderForm(formType)}</div>
             </Transition.Child>
           </div>
         </div>
