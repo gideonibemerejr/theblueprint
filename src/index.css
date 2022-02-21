@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/** Classes for the displayed toast **/
+.Toastify__toast {
+}
+.Toastify__toast--rtl {
+}
+.Toastify__toast-body {
+}

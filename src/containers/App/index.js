@@ -1,4 +1,5 @@
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HomePage, LoginPage, RegistrationPage, RequireAuth } from '..';
 import { AuthProvider } from '../../utils/auth';
@@ -39,6 +40,7 @@ function App() {
           </Routes>
         </Layout>
       </Router>
+      <ToastContainer position='top-left' newestOnTop limit={5} />
     </AuthProvider>
   );
 }

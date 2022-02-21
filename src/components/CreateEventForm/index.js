@@ -8,6 +8,7 @@ import { DatePicker, Select, Switch, TimePicker } from '..';
 import eventSanitizer from '../../utils/eventSanitizer';
 import { useEffect } from 'react';
 import { createEvent } from '../../services/events';
+import { notification } from '../../services';
 
 const CreateEventForm = ({ setOpen }) => {
   const {
@@ -16,6 +17,7 @@ const CreateEventForm = ({ setOpen }) => {
     handleSubmit,
     watch,
     reset,
+    setError,
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm({
     defaultValues: FORM_DEFAULTS.CREATE_EVENT,
@@ -35,7 +37,12 @@ const CreateEventForm = ({ setOpen }) => {
       );
       console.log('the new one', newEvent);
     } catch (error) {
-      console.log('the error', error);
+      setError('name', {
+        type: 'server',
+        shouldFocus: true,
+        message: 'Something went wrong...try again',
+      });
+      notification.error('Something went wrong...try again');
     }
   };
 
@@ -74,6 +81,7 @@ const CreateEventForm = ({ setOpen }) => {
             </p>
           </div>
         </div>
+
         <div className='flex-1 flex flex-col justify-between'>
           <div className='px-4 divide-y divide-gray-200 sm:px-6'>
             <div className='pt-4 pb-2 flex justify-center items-center'>

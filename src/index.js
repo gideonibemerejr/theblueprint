@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'rc-time-picker/assets/index.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
 

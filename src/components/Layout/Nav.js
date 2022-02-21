@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/auth';
 
 const navigation = [
@@ -9,6 +9,7 @@ const navigation = [
 ];
 export default function Nav() {
   const auth = useAuth();
+  const navigate = useNavigate();
   return (
     <header className='bg-blue'>
       <nav className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' aria-label='Top'>
@@ -38,7 +39,7 @@ export default function Nav() {
           <div className='ml-10 space-x-4'>
             {auth.user ? (
               <button
-                onClick={() => auth.logout(auth.user)}
+                onClick={() => auth.logout(auth.user, navigate('/'))}
                 className='inline-block bg-blue py-2 px-4 border border-white rounded-md text-base font-medium text-white hover:bg-opacity-75'
               >
                 Log Out
