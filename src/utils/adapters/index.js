@@ -1,0 +1,1 @@
+export { ageGroupsAdapter } from './ageGroup';

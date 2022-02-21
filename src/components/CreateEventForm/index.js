@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 
 import { Dialog } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
-import { CREATE_EVENT_DEFAULTS, RSVP_STATUSES } from '../../_constants';
+import { FORM_DEFAULTS, RSVP_STATUSES } from '../../_constants';
 import { DatePicker, Select, Switch, TimePicker } from '..';
 import eventSanitizer from '../../utils/eventSanitizer';
 import { useEffect } from 'react';
@@ -18,7 +18,7 @@ const CreateEventForm = ({ setOpen }) => {
     reset,
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm({
-    defaultValues: CREATE_EVENT_DEFAULTS,
+    defaultValues: FORM_DEFAULTS.CREATE_EVENT,
   });
   const { mutate } = useSWRConfig();
 
@@ -41,7 +41,7 @@ const CreateEventForm = ({ setOpen }) => {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset(CREATE_EVENT_DEFAULTS);
+      reset(FORM_DEFAULTS.CREATE_EVENT);
     }
   }, [isSubmitSuccessful, reset]);
 

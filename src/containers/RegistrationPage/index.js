@@ -1,18 +1,34 @@
-import { useAuth } from '../../utils/auth';
-import { Controller, useForm } from 'react-hook-form';
-import { Switch } from '@headlessui/react';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import useSWR from 'swr';
+
+import { Switch, Select } from '../../components';
+import { getAgeGroups } from '../../services/users';
+import { FORM_DEFAULTS } from '../../_constants';
+
 export default function RegistrationPage() {
-  const { user, isAdmin } = useAuth();
-  const defaultValues = {
-    austinLocal: false,
-  };
+  const { data, error } = useSWR(`/age-groups`, getAgeGroups);
+  console.log('data', data);
   const {
     register,
     handleSubmit,
     watch,
     control,
-    formState: { errors },
-  } = useForm({ defaultValues });
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm({
+    defaultValues: {
+      ...FORM_DEFAULTS.USER_REGISTRATION,
+      age_group: data.ageGroups,
+    },
+  });
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset(FORM_DEFAULTS.CREATE_EVENT);
+    }
+  }, [isSubmitSuccessful, reset]);
+
   return (
     <div className='space-y-6'>
       <header className='py-10'>
@@ -32,7 +48,7 @@ export default function RegistrationPage() {
                   Information
                 </h3>
                 <p className='mt-1 text-sm text-gray-500'>
-                  You know the drill...
+                  We know. ANOTHER form. But think of it like a SXSW pastime.
                 </p>
               </div>
               <div className='mt-5 md:mt-0 md:col-span-2'>
@@ -119,46 +135,11 @@ export default function RegistrationPage() {
                     </div>
 
                     <div className='col-span-6 sm:col-span-6 lg:col-span-2'>
-                      <Controller
-                        name='austinLocal'
+                      <Switch
                         control={control}
-                        render={({ field }) => (
-                          <Switch.Group
-                            as='div'
-                            className='flex items-center justify-between'
-                          >
-                            <span className='flex-grow flex flex-col'>
-                              <Switch.Label
-                                as='span'
-                                className='text-sm font-medium text-gray-900'
-                                passive
-                              >
-                                From Austin?
-                              </Switch.Label>
-                              <Switch.Description
-                                as='span'
-                                className='text-sm text-gray-500'
-                              >
-                                Seriously, is your zip code Austin, TX?
-                              </Switch.Description>
-                            </span>
-                            <Switch
-                              checked={field.value}
-                              onChange={(e) => field.onChange(e.target.checked)}
-                              className={`${
-                                field.value ? 'bg-indigo-600' : 'bg-gray-200'
-                              } relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
-                            >
-                              <span
-                                aria-hidden='true'
-                                className={`
-                              ${field.value ? 'translate-x-5' : 'translate-x-0'}
-                              'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-                            `}
-                              />
-                            </Switch>
-                          </Switch.Group>
-                        )}
+                        name='austinLocal'
+                        label='Are you local to Austin?'
+                        description='We mean Austin. Not surrounding cities.'
                       />
                     </div>
 
