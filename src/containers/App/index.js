@@ -13,7 +13,14 @@ function App() {
       <Router>
         <Layout>
           <Routes>
-            <Route path='/public' element={<div>public</div>} />
+            <Route
+              path='/'
+              element={
+                <RequireAuth redirectTo='/login'>
+                  <HomePage />
+                </RequireAuth>
+              }
+            />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegistrationPage />} />
 
@@ -25,18 +32,10 @@ function App() {
                 </RequireAuth>
               }
             >
-              <Route index element={<EventsPage />} />
               <Route path='events' element={<EventsPage />} />
               <Route path='spreadsheets' element={<SpreadSheetsPage />} />
+              <Route index element={<EventsPage />} />
             </Route>
-            <Route
-              path='/'
-              element={
-                <RequireAuth redirectTo='/login'>
-                  <HomePage />
-                </RequireAuth>
-              }
-            />
           </Routes>
         </Layout>
       </Router>
