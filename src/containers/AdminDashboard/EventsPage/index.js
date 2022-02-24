@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import useSWR from 'swr';
 
-import { AdminEmptyState } from '../../../components';
+import { AdminEmptyState, Table } from '../../../components';
 import { getEvents } from '../../../services/events';
+import { TABLE_COLUMNS } from '../../../_constants';
 
 const EventsPage = (props) => {
   const { data, error } = useSWR('/blue-sheet-events', getEvents);
-  
-  console.log(data, error);
 
   const { setCurrentModal, setOpen } = useOutletContext();
+  const columns = useMemo(
+    () =>
+      TABLE_COLUMNS.INITIAL_EVENT_COLUMNS.reduce(
+        (acc, value) => ({ ...acc, [value]: value }),
+        {}
+      ),
+    []
+  );
   return (
     <div className='px-4 py-8 sm:px-0'>
       {data?.events?.length > 0 ? (
-        <div>theres some</div>
+        <Table
+          columns={columns}
+          data={data?.events?.map((event) => {
+            const newEvent = { ...event?.attributes, id: event.id };
+
+            return newEvent;
+          })}
+        />
       ) : (
         <AdminEmptyState
           setCurrentModal={setCurrentModal}

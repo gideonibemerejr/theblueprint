@@ -18,6 +18,6 @@ export const getEvents = (url) => {
 
 export const createEvent = (newEvent) => {
   return httpClient
-    .post(`/blue-sheet-events`, newEvent)
-    .then((res) => console.log('THE RESPONSE', res));
+    .post(`/blue-sheet-events`, { data: newEvent })
+    .then((res) => console.log('THE RESPONSE FROM EVENT CREATION', res));
 };

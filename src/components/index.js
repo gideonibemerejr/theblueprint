@@ -7,3 +7,4 @@ export { default as Select } from './Select';
 export { default as DatePicker } from './DatePicker';
 export { default as TimePicker } from './TimePicker';
 export { default as Switch } from './Switch';
+export { default as Table } from './Table';

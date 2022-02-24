@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
 import httpClient from '../utils/httpClient';
+import { notification } from '../services';
 
 function useProvideAuth() {
   const [error, setError] = useState(null);
@@ -13,9 +14,13 @@ function useProvideAuth() {
       const token = Cookies.get('token');
       if (token) {
         httpClient.defaults.headers.Authorization = `Bearer ${token}`;
-        const { data: user } = await httpClient.get('/users/me');
-        if (user) {
-          setUser(user);
+        try {
+          const { data: user } = await httpClient.get('/users/me');
+          if (user) {
+            setUser(user);
+          }
+        } catch (error) {
+          notification.error(error.message);
         }
       }
       setLoading(false);
@@ -29,7 +34,7 @@ function useProvideAuth() {
         identifier,
         password,
       });
-      console.log('the response', res);
+
       if (res && res.statusText === 'OK') {
         const {
           data: { jwt, user },
@@ -41,11 +46,11 @@ function useProvideAuth() {
         setUser(user);
         callback();
       } else {
-        console.log(res?.error?.message);
         setError(res?.error?.message || 'Something went wrong');
       }
     } catch (error) {
       setError(error);
+      notification.error(error.message);
     }
   };
 

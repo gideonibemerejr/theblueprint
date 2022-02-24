@@ -31,26 +31,23 @@ const CreateEventForm = ({ setOpen }) => {
     let sanitizedData = eventSanitizer(data);
 
     try {
-      const newEvent = await mutate(
-        '/blue-sheet-events',
-        createEvent(sanitizedData)
-      );
-      console.log('the new one', newEvent);
+      await mutate('/blue-sheet-events', createEvent(sanitizedData));
     } catch (error) {
       setError('name', {
         type: 'server',
         shouldFocus: true,
         message: 'Something went wrong...try again',
       });
-      notification.error('Something went wrong...try again');
+      notification.error(error.message);
     }
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset(FORM_DEFAULTS.CREATE_EVENT);
+      setOpen(false);
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset, setOpen]);
 
   return (
     <form

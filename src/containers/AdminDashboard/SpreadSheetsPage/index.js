@@ -8,8 +8,6 @@ import { getEvents } from '../../../services/events';
 const EventsPage = (props) => {
   const { data, error } = useSWR('/blue-sheet-events', getEvents);
 
-  console.log(data, error);
-
   const { setCurrentModal, setOpen } = useOutletContext();
   return (
     <div className='px-4 py-8 sm:px-0'>
