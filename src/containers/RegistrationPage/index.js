@@ -32,14 +32,14 @@ export default function RegistrationPage() {
   return (
     <div className='space-y-6'>
       <header className='py-10'>
-        <div className='max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className=' mx-auto px-4 sm:px-6 lg:px-8'>
           <h1 className='text-3xl font-bold text-white'>
             Register for the Blueprint
           </h1>
         </div>
       </header>
       <main className='-mt-32'>
-        <div className='max-w-screen-2xl mx-auto pb-12 px-4 sm:px-6 lg:px-8'>
+        <div className=' mx-auto pb-12 px-4 sm:px-6 lg:px-8'>
           {/* Replace with your content */}
           <div className='bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6'>
             <div className='md:grid md:grid-cols-3 md:gap-6'>

@@ -12,10 +12,7 @@ export default function Nav() {
   const navigate = useNavigate();
   return (
     <header className='bg-blue'>
-      <nav
-        className='max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8'
-        aria-label='Top'
-      >
+      <nav className=' mx-auto px-4 sm:px-6 lg:px-8' aria-label='Top'>
         <div className='w-full py-6 flex items-center justify-between border-b border-blue lg:border-none'>
           <div className='flex items-center'>
             <Link to='/'>
