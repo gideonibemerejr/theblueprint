@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useTable } from 'react-table';
 import moment from 'moment';
 
+import Emoji from '../Emoji';
 import { TABLE_COLUMNS } from '../../_constants';
 
 const Table = ({ columns, data }) => {
@@ -12,7 +13,8 @@ const Table = ({ columns, data }) => {
       columns.staffPick && {
         Header: TABLE_COLUMNS.EVENT_COLUMNS[0].label,
         accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[0], // accessor is the "key" in the data
-        Cell: ({ value }) => (value ? <>&#128175;</> : 'No'),
+        Cell: ({ value }) =>
+          value ? <Emoji symbol='🅿️ ' label='parking emoji' /> : 'No',
       },
       columns.name && {
         Header: TABLE_COLUMNS.EVENT_COLUMNS[1].label,
