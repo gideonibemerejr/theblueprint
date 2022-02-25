@@ -122,8 +122,9 @@ const Login = () => {
                 <button
                   type='submit'
                   className='w-full flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-blue hover:bg-white hover:text-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
+                  disabled={loading}
                 >
-                  Sign in
+                  {loading ? 'Signing you in...' : 'Sign in'}
                 </button>
               </div>
             </form>

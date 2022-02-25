@@ -11,7 +11,7 @@ const TimePicker = ({ control, name, containerId }) => {
       name={name}
       render={({ field }) => (
         <ReactTimePicker
-          className='z-50'
+          className='mb-4'
           defaultValue={now}
           showSecond={false}
           format={format}

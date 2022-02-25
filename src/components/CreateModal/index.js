@@ -24,7 +24,7 @@ export default function CreateModal({ open, setOpen, formType }) {
         <div className='absolute inset-0 overflow-hidden'>
           <Dialog.Overlay className='absolute inset-0' />
 
-          <div className='fixed inset-y-0 pl-16 max-w-full right-0 flex'>
+          <div className='fixed inset-y-0 pl-0 sm:pl-16 max-w-full right-0 flex'>
             <Transition.Child
               as={Fragment}
               enter='transform transition ease-in-out duration-500 sm:duration-700'

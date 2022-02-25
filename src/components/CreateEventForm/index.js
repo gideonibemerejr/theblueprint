@@ -144,7 +144,7 @@ const CreateEventForm = ({ setOpen }) => {
                   </div>
                 </div>
               </div>
-              <div className='space-y-6 pt-4 pb-2'>
+              <div className='space-y-2 md:space-y-6 pt-4 pb-2'>
                 <div>
                   <label
                     htmlFor='rsvpStatus'
@@ -202,8 +202,8 @@ const CreateEventForm = ({ setOpen }) => {
                   />
                 </div>
               </div>
-              <div className='pt-4 pb-2 flex justify-center items-center'>
-                <div className='md:w-1/2'>
+              <div className='pt-4 pb-2 flex flex-col md:flex-row justify-center items-center'>
+                <div className='w-full md:w-1/2'>
                   <label
                     htmlFor='startDate'
                     className='block text-sm font-medium text-gray-900'
@@ -214,7 +214,7 @@ const CreateEventForm = ({ setOpen }) => {
                     <DatePicker control={control} name='startDate' />
                   </div>
                 </div>
-                <div className='md:w-1/2'>
+                <div className='w-full md:w-1/2'>
                   <label
                     htmlFor='endDate'
                     className='block text-sm font-medium text-gray-900'
@@ -226,15 +226,15 @@ const CreateEventForm = ({ setOpen }) => {
                   </div>
                 </div>
               </div>
-              <div className='pt-4 pb-2 flex justify-center items-center'>
-                <div className='md:w-1/2'>
+              <div className='pt-4 pb-2 flex flex-col md:flex-row justify-center items-center'>
+                <div className='w-full md:w-1/2'>
                   <label
                     htmlFor='startDate'
                     className='block text-sm font-medium text-gray-900'
                   >
                     Start time
                   </label>
-                  <div id='start-picker' className='mt-1'>
+                  <div id='start-picker' className='mt-1 w-full'>
                     <TimePicker
                       control={control}
                       name='startTime'
@@ -242,7 +242,7 @@ const CreateEventForm = ({ setOpen }) => {
                     />
                   </div>
                 </div>
-                <div className='md:w-1/2'>
+                <div className='w-full md:w-1/2'>
                   <label
                     htmlFor='endTime'
                     className='block text-sm font-medium text-gray-900'
@@ -268,7 +268,7 @@ const CreateEventForm = ({ setOpen }) => {
                   />
                 </div>
               </div>
-              <div className='pt-4 pb-2 flex justify-center items-center'>
+              <div className='pt-2 pb-2 flex justify-center items-center'>
                 <div className='mt-1 w-full'>
                   <Switch
                     control={control}

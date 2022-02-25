@@ -20,23 +20,8 @@ export default function Nav() {
                 The Blueprint
               </span>
             </Link>
-            {auth?.isAdmin ? (
-              <div className='hidden ml-10 space-x-8 lg:block'>
-                {navigation.map((link) => (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    className='font-medium text-white hover:text-gray-400'
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <></>
-            )}
           </div>
-          <div className='ml-10 space-x-4'>
+          <div className='ml-10 space-x-4 md:w-1/2 md:flex md:justify-end'>
             {auth.user ? (
               <button
                 onClick={() => auth.logout(auth.user, navigate('/'))}
@@ -45,33 +30,22 @@ export default function Nav() {
                 Log Out
               </button>
             ) : (
-              <>
+              <div className='w-full md:flex md:justify-end'>
                 <Link
                   to={'/login'}
-                  className='inline-block bg-blue py-2 px-4 border border-white rounded-md text-base font-medium text-white hover:bg-opacity-75'
+                  className='inline-block bg-blue py-2 px-4 border border-white rounded-md text-base font-medium text-white hover:bg-opacity-75 md:mx-6'
                 >
                   Sign in
                 </Link>
                 <Link
                   to='/'
-                  className='inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-blue-600 hover:bg-blue-50'
+                  className='hidden md:inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-blue-600 hover:bg-blue-50'
                 >
                   Sign up
                 </Link>
-              </>
+              </div>
             )}
           </div>
-        </div>
-        <div className='py-4 flex flex-wrap justify-center space-x-6 lg:hidden'>
-          {navigation.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className='text-base text-white font-medium text-white hover:text-gray-300'
-            >
-              {link.name}
-            </a>
-          ))}
         </div>
       </nav>
     </header>
