@@ -21,7 +21,7 @@ export default function Cards({ data }) {
           >
             <div className='w-full flex items-center justify-between p-6 space-x-6'>
               <div className='flex-1'>
-                <div className='flex items-center justify-between space-x-3 mb-4'>
+                <div className='flex items-start justify-between space-x-3 mb-4'>
                   <h3 className='text-gray-900 text-xl font-medium '>
                     {event.name}
                   </h3>
