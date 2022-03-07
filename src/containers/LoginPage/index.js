@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { useNavigate, useLocation, Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../../utils/auth';
 
 const Login = () => {
@@ -11,8 +11,17 @@ const Login = () => {
     register,
     handleSubmit,
     watch,
+    getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      identifier: '',
+      password: '',
+    },
+  });
+
+  const watchEmail = watch('identifier', false);
+  const watchPassword = watch('password', false);
 
   let navigate = useNavigate();
   let location = useLocation();
@@ -24,14 +33,15 @@ const Login = () => {
     e.preventDefault();
     setError(null);
     setLoading(true);
-    auth
-      .login(data, () => {
-        navigate(from, { replace: true });
-      })
-      .catch((error) =>
-        setError('Invalid email and/or password, please try again')
-      );
+
     try {
+      auth
+        .login(data, () => {
+          navigate(from, { replace: true });
+        })
+        .catch((error) =>
+          setError('Invalid email and/or password, please try again')
+        );
     } catch (error) {
       setError('Invalid email and/or password, please try again');
     } finally {
@@ -79,8 +89,10 @@ const Login = () => {
                     // required
                     className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm'
                   />
-                  {errors.exampleRequired && (
-                    <span>This field is required</span>
+                  {errors.identifier && (
+                    <span className='inline-block mt-2 text-red-500'>
+                      Email is required
+                    </span>
                   )}
                 </div>
               </div>
@@ -100,8 +112,10 @@ const Login = () => {
                     // required
                     className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm'
                   />
-                  {errors.exampleRequired && (
-                    <span>This field is required</span>
+                  {errors.password && (
+                    <span className='inline-block mt-2 text-red-500'>
+                      Password is required
+                    </span>
                   )}
                 </div>
               </div>
@@ -124,8 +138,19 @@ const Login = () => {
                   className='w-full flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-blue hover:bg-white hover:text-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
                   disabled={loading}
                 >
-                  {loading ? 'Signing you in...' : 'Sign in'}
+                  {loading ? 'Signing you in...' : 'Log in'}
                 </button>
+                <Link
+                  to='/register'
+                  state={{
+                    email: watchEmail ? getValues('identifier') : '',
+                    password: watchPassword ? getValues('password') : '',
+                  }}
+                  className='mt-4 w-full flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-blue bg-white hover:bg-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500'
+                  disabled={loading}
+                >
+                  Sign Up
+                </Link>
               </div>
             </form>
           </div>

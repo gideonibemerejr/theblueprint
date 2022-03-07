@@ -35,7 +35,7 @@ export default function Nav() {
                   to={'/login'}
                   className='inline-block bg-blue py-2 px-4 border border-white rounded-md text-base font-medium text-white hover:bg-opacity-75 md:mx-6'
                 >
-                  Sign in
+                  Log in
                 </Link>
                 <Link
                   to='/register'

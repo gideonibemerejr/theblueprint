@@ -25,4 +25,5 @@ export const USER_REGISTRATION = {
   gender: '',
   lastName: '',
   zipCode: '',
+  password: '',
 };

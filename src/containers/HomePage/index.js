@@ -1,14 +1,10 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../utils/auth';
-import AdminDashboard from '../AdminDashboard';
 
 const HomePage = () => {
   const auth = useAuth();
 
-  if (auth?.user?.email && !auth?.user?.firstName) {
-    return <Navigate to='/register' />;
-  }
-  return auth.isAdmin ? <Navigate to='/admin' /> : <div>Logging in Normmy</div>;
+  return auth.isAdmin ? <Navigate to='/admin' /> : <Navigate to='/profile' />;
 };
 
 export default HomePage;

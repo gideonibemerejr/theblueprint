@@ -37,6 +37,17 @@ function App() {
               <Route path='spreadsheets' element={<SpreadSheetsPage />} />
               <Route index element={<EventsPage />} />
             </Route>
+            <Route
+              path='profile'
+              element={
+                <RequireAuth redirectTo='/login'>
+                  <div>gideon</div>
+                </RequireAuth>
+              }
+            >
+              <Route index element={<SpreadSheetsPage />} />
+              <Route path='spreadsheets' element={<SpreadSheetsPage />} />
+            </Route>
           </Routes>
         </Layout>
       </Router>

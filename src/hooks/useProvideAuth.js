@@ -61,11 +61,35 @@ function useProvideAuth() {
     callback();
   };
 
+  const register = async (user, callback) => {
+    try {
+      const res = await httpClient.post('/auth/local/register', user);
+
+      if (res && res.statusText === 'OK') {
+        const {
+          data: { jwt, user },
+        } = res;
+
+        Cookies.set('token', jwt, { expires: 60 });
+        httpClient.defaults.headers.Authorization = `Bearer ${jwt}`;
+
+        setUser(user);
+        callback();
+      } else {
+        setError(res?.error?.message || 'Something went wrong');
+      }
+    } catch (error) {
+      setError(error);
+      notification.error(error.message);
+    }
+  };
+
   return {
     user,
     isAdmin: user?.email.includes('@whenwherewhat.com'),
     login,
     logout,
+    register,
     error,
     loading,
   };
