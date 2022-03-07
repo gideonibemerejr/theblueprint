@@ -12,7 +12,7 @@ export default function UserHeader({ children }) {
     // },
     {
       name: 'The Bluprint',
-      to: 'blueprints',
+      to: 'blueprint',
       current: pathname === '/profile/blueprint',
     },
   ];
