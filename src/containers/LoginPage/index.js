@@ -48,7 +48,7 @@ const Login = () => {
 
   return (
     <>
-      <div className='min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-blue'>
+      <div className='min-h-screen flex flex-col justify-start py-12 px-6 lg:px-8 bg-blue'>
         <div className='sm:mx-auto sm:w-full sm:max-w-md'>
           <h2 className='mt-6 text-center text-3xl font-extrabold text-white'>
             Sign in to your account
@@ -63,7 +63,7 @@ const Login = () => {
         </div>
 
         <div className='mt-6 sm:mx-auto sm:w-full sm:max-w-md'>
-          <div className='bg-blue py-8 px-4 border border-white sm:rounded-lg sm:px-10'>
+          <div className='bg-blue py-8 px-4 border border-white rounded-lg sm:px-10'>
             <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label
