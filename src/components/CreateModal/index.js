@@ -7,9 +7,6 @@ export default function CreateModal({ open, setOpen, formType }) {
     switch (formType) {
       case 'CREATE_EVENT':
         return <CreateEventForm setOpen={setOpen} />;
-
-        break;
-
       default:
         break;
     }

@@ -106,6 +106,11 @@ const CreateEventForm = ({ setOpen }) => {
                     required
                     className='block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md'
                   />
+                  {errors.name && (
+                    <span className='inline-block mt-2 text-red-500'>
+                      Event name is required
+                    </span>
+                  )}
                 </div>
               </div>
               <div className='space-y-6 pt-4 pb-2'>
@@ -123,6 +128,11 @@ const CreateEventForm = ({ setOpen }) => {
                       required
                       className='block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md'
                     />
+                    {errors.link && (
+                      <span className='inline-block mt-2 text-red-500'>
+                        Event link is required
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -141,6 +151,11 @@ const CreateEventForm = ({ setOpen }) => {
                       required
                       className='block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md'
                     />
+                    {errors.venue && (
+                      <span className='inline-block mt-2 text-red-500'>
+                        Venuesd is required
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

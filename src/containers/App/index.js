@@ -6,7 +6,7 @@ import { AuthProvider } from '../../utils/auth';
 import { Layout } from '../../components';
 import AdminDashboard from '../AdminDashboard';
 import EventsPage from '../AdminDashboard/EventsPage';
-import SpreadSheetsPage from '../AdminDashboard/SpreadSheetsPage';
+// import SpreadSheetsPage from '../AdminDashboard/SpreadSheetsPage';
 import UserDashboard from '../UserDashboard';
 import BlueprintPage from '../UserDashboard/BlueprintPage';
 

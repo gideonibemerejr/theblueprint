@@ -7,6 +7,7 @@ import countries from 'i18n-iso-countries';
 import enLocale from 'i18n-iso-countries/langs/en.json';
 
 import { Switch, Select } from '../../components';
+import { notification } from '../../services';
 import { getAgeGroups } from '../../services/users';
 import { FORM_DEFAULTS, GENDERS } from '../../_constants';
 import { useAuth } from '../../utils/auth';
@@ -75,10 +76,12 @@ export default function RegistrationPage() {
   };
 
   useEffect(() => {
+    if (error) notification.error(error.message);
+
     if (isSubmitSuccessful) {
       reset(FORM_DEFAULTS.USER_REGISTRATION);
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset, error]);
 
   return (
     <div className='space-y-6'>

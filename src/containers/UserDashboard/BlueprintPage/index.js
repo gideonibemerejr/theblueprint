@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Switch } from '@headlessui/react';
 import useSWR from 'swr';
 import queryString from 'query-string';
@@ -18,11 +18,12 @@ import {
   VIEW_TYPES,
   SORT_OPTIONS,
 } from '../../../_constants';
+import { notification } from '../../../services';
 
 const BlueprintPage = () => {
   const [view, setView] = useState(VIEW_TYPES.CARDS);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(25);
+  const [pageSize] = useState(25);
   const [currentDate, setCurrentDate] = useState(FESTIVAL_DAYS[0].value);
   const [currentSort, setCurrentSort] = useState(SORT_OPTIONS[0].value);
 
@@ -45,6 +46,10 @@ const BlueprintPage = () => {
     }${currentSort !== 'none' ? `&sort=${currentSort}` : ''}`,
     getEvents
   );
+
+  useEffect(() => {
+    if (error) notification.error(error.message);
+  }, [error]);
 
   const columns = useMemo(
     () =>

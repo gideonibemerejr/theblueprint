@@ -1,12 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/auth';
 
-const navigation = [
-  { name: 'Solutions', href: '#' },
-  { name: 'Pricing', href: '#' },
-  { name: 'Docs', href: '#' },
-  { name: 'Company', href: '#' },
-];
 export default function Nav() {
   const auth = useAuth();
   const navigate = useNavigate();

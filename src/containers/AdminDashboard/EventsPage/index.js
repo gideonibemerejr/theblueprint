@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import useSWR from 'swr';
 import queryString from 'query-string';
@@ -13,6 +13,7 @@ import {
   Pagination,
   SortDropdown,
 } from '../../../components';
+import { notification } from '../../../services';
 import { getEvents } from '../../../services/events';
 import {
   FESTIVAL_DAYS,
@@ -24,7 +25,7 @@ import {
 const EventsPage = (props) => {
   const [view, setView] = useState(VIEW_TYPES.CARDS);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(25);
+  const [pageSize] = useState(25);
   const [currentDate, setCurrentDate] = useState(FESTIVAL_DAYS[0].value);
   const [currentSort, setCurrentSort] = useState(SORT_OPTIONS[0].value);
   const nextPage = () => setPage((prevState) => prevState + 1);
@@ -45,6 +46,10 @@ const EventsPage = (props) => {
     }${currentSort !== 'none' ? `&sort=${currentSort}` : ''}`,
     getEvents
   );
+
+  useEffect(() => {
+    if (error) notification.error(error.message);
+  }, [error]);
   const { setCurrentModal, setOpen } = useOutletContext();
 
   const columns = useMemo(
