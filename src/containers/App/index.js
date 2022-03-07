@@ -35,9 +35,9 @@ function App() {
                 </RequireAuth>
               }
             >
-              <Route path='events' element={<EventsPage />} />
-              <Route path='spreadsheets' element={<SpreadSheetsPage />} />
               <Route index element={<EventsPage />} />
+              <Route path='events' element={<EventsPage />} />
+              {/* <Route path='spreadsheets' element={<SpreadSheetsPage />} /> */}
             </Route>
             <Route
               path='profile'

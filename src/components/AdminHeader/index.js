@@ -5,11 +5,11 @@ export default function AdminHeader({ children }) {
   const { pathname } = useLocation();
   const { user } = useAuth();
   const tabs = [
-    {
-      name: 'Spreadsheets',
-      to: 'spreadsheets',
-      current: pathname === '/admin/spreadsheets',
-    },
+    // {
+    //   name: 'Spreadsheets',
+    //   to: 'spreadsheets',
+    //   current: pathname === '/admin/spreadsheets',
+    // },
     {
       name: 'Events',
       to: 'events',
