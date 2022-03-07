@@ -124,7 +124,7 @@ const Login = () => {
                 <div />
                 <div className='text-sm'>
                   <a
-                    href='#'
+                    href='mailto:dev@whenwherewhat.com'
                     className='font-medium text-white hover:text-gray-500'
                   >
                     Forgot your password?

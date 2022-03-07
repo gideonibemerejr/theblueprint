@@ -20,6 +20,9 @@ function useProvideAuth() {
             setUser(user);
           }
         } catch (error) {
+          Cookies.remove('token');
+          setUser(null);
+          delete httpClient.defaults.headers.Authorization;
           notification.error(error.message);
         }
       }
@@ -46,9 +49,13 @@ function useProvideAuth() {
         setUser(user);
         callback();
       } else {
+        Cookies.remove('token');
         setError(res?.error?.message || 'Something went wrong');
       }
     } catch (error) {
+      Cookies.remove('token');
+      setUser(null);
+      delete httpClient.defaults.headers.Authorization;
       setError(error);
       notification.error(error.message);
     }
