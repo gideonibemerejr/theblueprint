@@ -22,7 +22,7 @@ export default function Cards({ data }) {
             <div className='w-full flex items-center justify-between p-6 space-x-6'>
               <div className='flex-1'>
                 <div className='flex items-center justify-between space-x-3 mb-4'>
-                  <h3 className='text-gray-900 text-xl font-medium truncate'>
+                  <h3 className='text-gray-900 text-xl font-medium '>
                     {event.name}
                   </h3>
                   <span className='flex-shrink-0 inline-block px-2 py-0.5  font-medium '>
@@ -32,25 +32,25 @@ export default function Cards({ data }) {
                   </span>
                 </div>
                 {event?.startTime && (
-                  <p className='mt-1 text-gray-800  truncate'>
+                  <p className='mt-1 text-gray-800'>
                     <strong className='mr-2'>Starts:</strong>
                     {moment(event?.startTime, 'h:mm a').format('h:mm a')}
                   </p>
                 )}
                 {event?.endTime && (
-                  <p className='mt-1 text-gray-800  truncate'>
+                  <p className='mt-1 text-gray-800'>
                     <strong className='mr-2'>Ends:</strong>
                     {moment(event?.endTime, 'h:mm a').format('h:mm a')}
                   </p>
                 )}
                 {event?.venue && (
-                  <p className='mt-1 text-gray-800  truncate'>
+                  <p className='mt-1 text-gray-800'>
                     <strong className='mr-2'>Location:</strong>
                     {startCase(event?.venue)}
                   </p>
                 )}
                 {event?.freeDrinks && (
-                  <p className='mt-1 text-gray-800  truncate'>
+                  <p className='mt-1 text-gray-800'>
                     <strong className='mr-2'>Free Drinks? </strong>
                     {event?.freeDrinks ? (
                       <Emoji symbol='🥃' label='true' />
@@ -60,7 +60,7 @@ export default function Cards({ data }) {
                   </p>
                 )}
                 {event?.venue && (
-                  <p className='mt-1 text-gray-800  truncate'>
+                  <p className='mt-1 text-gray-800'>
                     <strong className='mr-2'>Free Food?</strong>
                     {event?.freeDrinks ? (
                       <Emoji symbol='🌮 ' label='true' />
@@ -70,13 +70,13 @@ export default function Cards({ data }) {
                   </p>
                 )}
                 {event?.rsvpStatus?.status && (
-                  <p className='mt-1 text-gray-800  truncate'>
+                  <p className='mt-1 text-gray-800'>
                     <strong className='mr-2'>RSVP Status:</strong>
                     {startCase(event?.rsvpStatus?.status)}
                   </p>
                 )}
                 {event?.rsvpStatus?.price && (
-                  <p className='mt-1 text-gray-800  truncate'>
+                  <p className='mt-1 text-gray-800'>
                     <strong className='mr-2'>Price:</strong>
                     {startCase(event?.rsvpStatus?.price)}
                   </p>
