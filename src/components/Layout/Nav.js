@@ -38,7 +38,7 @@ export default function Nav() {
                   Sign in
                 </Link>
                 <Link
-                  to='/'
+                  to='/register'
                   className='hidden md:inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-blue-600 hover:bg-blue-50'
                 >
                   Sign up

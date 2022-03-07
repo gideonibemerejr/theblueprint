@@ -14,12 +14,16 @@ const Table = ({ columns, data }) => {
         Header: TABLE_COLUMNS.EVENT_COLUMNS[0].label,
         accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[0], // accessor is the "key" in the data
         Cell: ({ value }) =>
-          value ? <Emoji symbol='🅿️ ' label='parking emoji' /> : 'No',
+          value ? <Emoji symbol='🅿️ ' label='true' /> : 'No',
       },
       columns.name && {
         Header: TABLE_COLUMNS.EVENT_COLUMNS[1].label,
         accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[1],
-        Cell: ({ value, row }) => <a href={row?.original?.link}>{value}</a>,
+        Cell: ({ value, row }) => (
+          <a href={row?.original?.link} target='_blank' rel='noreferrer'>
+            {value}
+          </a>
+        ),
       },
       columns.status && {
         Header: TABLE_COLUMNS.EVENT_COLUMNS[3].label,
@@ -57,17 +61,23 @@ const Table = ({ columns, data }) => {
       columns.isAllWeek && {
         Header: TABLE_COLUMNS.EVENT_COLUMNS[10].label,
         accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[10],
+        Cell: ({ value }) =>
+          value ? <Emoji symbol='✅ ' label='true' /> : 'No',
       },
       columns.freeDrinks && {
         Header: TABLE_COLUMNS.EVENT_COLUMNS[11].label,
         accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[11],
+        Cell: ({ value }) =>
+          value ? <Emoji symbol='🥃' label='true' /> : 'No',
       },
       columns.freeFood && {
         Header: TABLE_COLUMNS.EVENT_COLUMNS[12].label,
         accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[12],
+        Cell: ({ value }) =>
+          value ? <Emoji symbol='🌮 ' label='true' /> : 'No',
       },
       columns.notes && {
-        Header: TABLE_COLUMNS.EVENT_COLUMNS[12].label,
+        Header: TABLE_COLUMNS.EVENT_COLUMNS[13].label,
         accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[13],
       },
     ],
@@ -77,7 +87,6 @@ const Table = ({ columns, data }) => {
       columns.freeDrinks,
       columns.freeFood,
       columns.isAllWeek,
-      columns.link,
       columns.name,
       columns.notes,
       columns.price,
@@ -148,7 +157,9 @@ const Table = ({ columns, data }) => {
                       // Apply the row props
                       <tr
                         {...row.getRowProps()}
-                        className={i % 2 === 0 ? 'bg-white' : 'bg-gray-100'}
+                        className={`${
+                          i % 2 === 0 ? 'bg-white' : 'bg-gray-100'
+                        } hover:bg-gray-200`}
                       >
                         {
                           // Loop over the rows cells

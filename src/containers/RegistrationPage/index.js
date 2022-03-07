@@ -19,7 +19,7 @@ export default function RegistrationPage() {
   } = useForm({
     defaultValues: {
       ...FORM_DEFAULTS.USER_REGISTRATION,
-      age_group: data.ageGroups,
+      age_group: data?.ageGroups,
     },
   });
 
@@ -190,7 +190,7 @@ export default function RegistrationPage() {
               type='submit'
               className='ml-3 inline-flex justify-center py-2 px-4 border border-white shadow-sm text-sm font-medium rounded-md text-white hover:text-blue bg-blue hover:bg-white hover:border hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue'
             >
-              Save
+              Sign up
             </button>
           </div>
           {/* /End replace */}
