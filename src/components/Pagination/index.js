@@ -10,10 +10,12 @@ export default function Pagination({
       aria-label='Pagination'
     >
       <div className='hidden sm:block'>
-        <p className='text-sm text-white'>
-          Showing <span className='font-medium'>{page}</span> of{' '}
-          <span className='font-medium'>{pageCount}</span> pages
-        </p>
+        {page <= pageCount && (
+          <p className='text-sm text-white'>
+            Showing <span className='font-medium'>{page}</span> of{' '}
+            <span className='font-medium'>{pageCount}</span> pages
+          </p>
+        )}
       </div>
       <div className='flex-1 flex justify-between sm:justify-end'>
         {page - 1 > 0 && (

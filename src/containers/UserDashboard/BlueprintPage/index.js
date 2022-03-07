@@ -2,15 +2,30 @@ import React, { useMemo, useState } from 'react';
 import { Switch } from '@headlessui/react';
 import useSWR from 'swr';
 import queryString from 'query-string';
+import moment from 'moment';
 
-import { Table, UserEmptyState, Cards, Pagination } from '../../../components';
+import {
+  Table,
+  UserEmptyState,
+  Cards,
+  Pagination,
+  SortDropdown,
+} from '../../../components';
 import { getEvents } from '../../../services/events';
-import { TABLE_COLUMNS, VIEW_TYPES } from '../../../_constants';
+import {
+  FESTIVAL_DAYS,
+  TABLE_COLUMNS,
+  VIEW_TYPES,
+  SORT_OPTIONS,
+} from '../../../_constants';
 
 const BlueprintPage = () => {
   const [view, setView] = useState(VIEW_TYPES.CARDS);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
+  const [currentDate, setCurrentDate] = useState(FESTIVAL_DAYS[0].value);
+  const [currentSort, setCurrentSort] = useState(SORT_OPTIONS[0].value);
+
   const nextPage = () => setPage((prevState) => prevState + 1);
   const prevPage = () => setPage((prevState) => prevState - 1);
   const params = queryString.stringify(
@@ -23,7 +38,11 @@ const BlueprintPage = () => {
   );
 
   const { data, error } = useSWR(
-    `/blue-sheet-events?${params}&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
+    `/blue-sheet-events?${params}&pagination[page]=${page}&pagination[pageSize]=${pageSize}${
+      currentDate !== '*'
+        ? `&filters[startDate][$eq]=${moment(currentDate).format()}`
+        : ''
+    }${currentSort !== 'none' ? `&sort=${currentSort}` : ''}`,
     getEvents
   );
 
@@ -67,11 +86,31 @@ const BlueprintPage = () => {
 
   return (
     <>
-      <div className='flex flex-col mt-4'>
-        <label className='text-gray-300'>{`${
-          view === VIEW_TYPES.CARDS ? 'Card' : 'Table'
-        } View`}</label>
-        <ViewSwitch enabled={view === VIEW_TYPES.CARDS} setEnabled={setView} />
+      <div className='flex sm:items-center justify-between'>
+        <div className='flex flex-col sm:flex-row mt-4'>
+          <div className='mb-4 sm:mr-4'>
+            <SortDropdown
+              label='Festival Day'
+              options={FESTIVAL_DAYS}
+              onChange={setCurrentDate}
+            />
+          </div>
+
+          <SortDropdown
+            label='Sort By'
+            options={SORT_OPTIONS}
+            onChange={setCurrentSort}
+          />
+        </div>
+        <div className='flex flex-col mt-4'>
+          <label className='block text-sm font-medium text-gray-300'>{`${
+            view === VIEW_TYPES.CARDS ? 'Card' : 'Table'
+          } View`}</label>
+          <ViewSwitch
+            enabled={view === VIEW_TYPES.CARDS}
+            setEnabled={setView}
+          />
+        </div>
       </div>
 
       <div className='py-8 sm:px-0'>

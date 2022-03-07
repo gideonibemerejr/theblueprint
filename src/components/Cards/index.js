@@ -78,10 +78,10 @@ export default function Cards({ data }) {
                     {startCase(event?.rsvpStatus?.status)}
                   </p>
                 )}
-                {event?.price && (
+                {event?.rsvpStatus?.price && (
                   <p className='mt-1 text-gray-800  truncate'>
                     <strong className='mr-2'>Price:</strong>
-                    {startCase(event?.price)}
+                    {startCase(event?.rsvpStatus?.price)}
                   </p>
                 )}
                 {event?.notes && (

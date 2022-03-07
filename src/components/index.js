@@ -13,3 +13,4 @@ export { default as Emoji } from './Emoji';
 export { default as Cards } from './Cards';
 export { default as UserHeader } from './UserHeader';
 export { default as Pagination } from './Pagination';
+export { default as SortDropdown } from './SortDropdown';
