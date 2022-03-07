@@ -7,6 +7,8 @@ import { Layout } from '../../components';
 import AdminDashboard from '../AdminDashboard';
 import EventsPage from '../AdminDashboard/EventsPage';
 import SpreadSheetsPage from '../AdminDashboard/SpreadSheetsPage';
+import UserDashboard from '../UserDashboard';
+import BlueprintPage from '../UserDashboard/BlueprintPage';
 
 function App() {
   return (
@@ -41,12 +43,12 @@ function App() {
               path='profile'
               element={
                 <RequireAuth redirectTo='/login'>
-                  <div>gideon</div>
+                  <UserDashboard />
                 </RequireAuth>
               }
             >
-              <Route index element={<SpreadSheetsPage />} />
-              <Route path='spreadsheets' element={<SpreadSheetsPage />} />
+              <Route index element={<BlueprintPage />} />
+              <Route path='blueprint' element={<BlueprintPage />} />
             </Route>
           </Routes>
         </Layout>

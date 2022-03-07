@@ -1,14 +1,23 @@
 import React, { useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import useSWR from 'swr';
+import queryString from 'query-string';
+import { pickBy } from 'lodash';
 
 import { AdminEmptyState, Table } from '../../../components';
 import { getEvents } from '../../../services/events';
 import { TABLE_COLUMNS } from '../../../_constants';
 
 const EventsPage = (props) => {
-  const { data, error } = useSWR('/blue-sheet-events', getEvents);
-
+  const params = queryString.stringify(
+    pickBy({
+      populate: '*',
+    }),
+    {
+      encodeValuesOnly: true,
+    }
+  );
+  const { data, error } = useSWR(`/blue-sheet-events?${params}`, getEvents);
   const { setCurrentModal, setOpen } = useOutletContext();
   const columns = useMemo(
     () =>

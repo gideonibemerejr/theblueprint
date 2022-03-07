@@ -100,9 +100,6 @@ const Table = ({ columns, data }) => {
 
   const memoizedData = useMemo(() => data, [data]);
 
-  useEffect(() => {
-    console.log(memoizedData, memoizedColumns);
-  });
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns: memoizedColumns, data: memoizedData });
 
