@@ -15,8 +15,8 @@ const CardItem = ({ event }) => {
 			key={event.id}
 			className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
 		>
-			<div className="w-full flex items-center justify-between p-6 space-x-6 min-h-[260px]">
-				<div className="flex-1">
+			<div className="w-full flex items-center justify-between p-6 space-x-6 ">
+				<div className="flex-1 min-h-[260px]">
 					<>
 						{notesOpen ? (
 							<div className="flex flex-col justify-between h-full mb-2">
@@ -35,6 +35,16 @@ const CardItem = ({ event }) => {
 										) : null}
 									</span>
 								</div>
+
+								{event?.startDate && (
+									<p className="mt-1 text-gray-800">
+										<strong className="mr-2">
+											{moment(event?.startDate, "YYYY-MM-DD").format(
+												"ddd, MMM D"
+											)}
+										</strong>
+									</p>
+								)}
 								{event?.startTime && (
 									<p className="mt-1 text-gray-800">
 										<strong className="mr-2">Starts:</strong>
