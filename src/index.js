@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+
 import "./index.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "rc-time-picker/assets/index.css";
@@ -9,7 +11,9 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<Router>
+			<App />
+		</Router>
 	</React.StrictMode>,
 	document.getElementById("root")
 );
