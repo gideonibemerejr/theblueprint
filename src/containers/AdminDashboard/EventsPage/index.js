@@ -60,6 +60,21 @@ const EventsPage = (props) => {
 			),
 		[]
 	);
+	const handleDayFilter = (value) => {
+		if (value === FESTIVAL_DAYS[0].value) {
+			setCurrentDate(value);
+			setPage(1);
+		} else {
+			const sanitizedDay = moment(value, "YYYY-MM-DD").format("YYYY-MM-DD");
+			setCurrentDate(sanitizedDay);
+			setPage(1);
+		}
+	};
+
+	const handleSort = (value) => {
+		setCurrentSort(value);
+		setPage(1);
+	};
 
 	const renderBlueprint = () => {
 		switch (view) {
@@ -98,14 +113,14 @@ const EventsPage = (props) => {
 						<SortDropdown
 							label="Festival Day"
 							options={FESTIVAL_DAYS}
-							onChange={setCurrentDate}
+							onChange={handleDayFilter}
 						/>
 					</div>
 
 					<SortDropdown
 						label="Sort By"
 						options={SORT_OPTIONS}
-						onChange={setCurrentSort}
+						onChange={handleSort}
 					/>
 				</div>
 				<div className="flex flex-col mt-4">
