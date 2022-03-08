@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useTable } from "react-table";
 import moment from "moment";
+import { LocationMarkerIcon } from "@heroicons/react/solid";
 
 import Emoji from "../Emoji";
 import { TABLE_COLUMNS } from "../../_constants";
@@ -19,7 +20,12 @@ const Table = ({ columns, data }) => {
 				Header: TABLE_COLUMNS.EVENT_COLUMNS[1].label,
 				accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[1],
 				Cell: ({ value, row }) => (
-					<a href={row?.original?.link} target="_blank" rel="noreferrer">
+					<a
+						className="hover:underline"
+						href={row?.original?.link}
+						target="_blank"
+						rel="noreferrer"
+					>
 						{value}
 					</a>
 				),
@@ -27,6 +33,24 @@ const Table = ({ columns, data }) => {
 			columns.venue && {
 				Header: TABLE_COLUMNS.EVENT_COLUMNS[3].label,
 				accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[3],
+				Cell: ({ value, row }) => {
+					const query = row?.original?.address.split(" ").join("+");
+					return (
+						<div className="flex flex-row">
+							<p className="mr-2"> {value}</p>
+							<a
+								href={`http://maps.google.com/maps?q=${query},+Austin,+Texas`}
+								target="_blank"
+								rel="noreferrer"
+							>
+								<LocationMarkerIcon
+									className="w-5 h-5 text-gray-400 hover:text-blue"
+									aria-hidden="true"
+								/>
+							</a>
+						</div>
+					);
+				},
 			},
 			columns.startDate && {
 				Header: TABLE_COLUMNS.EVENT_COLUMNS[4].label,
@@ -51,7 +75,13 @@ const Table = ({ columns, data }) => {
 				Header: TABLE_COLUMNS.EVENT_COLUMNS[7].label,
 				accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[7],
 				Cell: ({ value }) =>
-					value ? <Emoji symbol="🥃" label="true" /> : "No",
+					!!value ? (
+						<Emoji symbol="🥃" label="true" />
+					) : value === false ? (
+						"No"
+					) : (
+						"TBA"
+					),
 			},
 			columns.freeFood && {
 				Header: TABLE_COLUMNS.EVENT_COLUMNS[8].label,
