@@ -37,12 +37,14 @@ const Table = ({ columns, data }) => {
 			columns.startTime && {
 				Header: TABLE_COLUMNS.EVENT_COLUMNS[5].label,
 				accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[5],
-				Cell: ({ value }) => moment(value, "HH:mm:ss").format("h:mm A"),
+				Cell: ({ value }) =>
+					value === null ? "TBA" : moment(value, "HH:mm:ss").format("h:mm A"),
 			},
 			columns.endTime && {
 				Header: TABLE_COLUMNS.EVENT_COLUMNS[6].label,
 				accessor: TABLE_COLUMNS.INITIAL_EVENT_COLUMNS[6],
-				Cell: ({ value }) => moment(value, "HH:mm:ss").format("h:mm A"),
+				Cell: ({ value }) =>
+					value === null ? "TBA" : moment(value, "HH:mm:ss").format("h:mm A"),
 			},
 
 			columns.freeDrinks && {
