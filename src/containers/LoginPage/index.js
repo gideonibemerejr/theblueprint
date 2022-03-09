@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { LockClosedIcon } from "@heroicons/react/solid";
 
 import { useNavigate, useLocation, Navigate, Link } from "react-router-dom";
 import { useAuth } from "../../utils/auth";
@@ -12,8 +13,9 @@ const Login = () => {
 		handleSubmit,
 		watch,
 		getValues,
-		formState: { errors },
+		formState: { errors, isValid, isDirty },
 	} = useForm({
+		mode: "onChange",
 		defaultValues: {
 			identifier: "",
 			password: "",
@@ -63,6 +65,20 @@ const Login = () => {
 					<h2 className="mt-6 text-center text-3xl font-extrabold text-white">
 						Sign in to your account
 					</h2>
+					<p className="mt-4 text-center text-white">
+						Don't have an account? Sign up{" "}
+						<Link
+							to="/register"
+							state={{
+								email: watchEmail ? getValues("identifier") : "",
+								password: watchPassword ? getValues("password") : "",
+							}}
+							className="font-medium text-white hover:text-gray-500 underline"
+							disabled={loading}
+						>
+							here.
+						</Link>
+					</p>
 					{(auth.error?.message || error) && (
 						<h2 className="text-center mt-6 text-red-500">
 							{error?.length > 0
@@ -135,25 +151,23 @@ const Login = () => {
 							<div>
 								<button
 									type="submit"
-									className="w-full flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-white bg-blue hover:bg-white hover:text-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-									disabled={loading}
+									className="group relative mt-4 w-full flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-blue bg-white hover:bg-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+									disabled={loading || !isDirty || !isValid}
 								>
+									{(loading || !isDirty || !isValid) && (
+										<span className="absolute left-0 inset-y-0 flex items-center pl-3">
+											<LockClosedIcon
+												className="h-5 w-5 text-blue group-hover:text-white"
+												aria-hidden="true"
+											/>
+										</span>
+									)}
 									{loading ? "Signing you in..." : "Log in"}
 								</button>
-								<Link
-									to="/register"
-									state={{
-										email: watchEmail ? getValues("identifier") : "",
-										password: watchPassword ? getValues("password") : "",
-									}}
-									className="mt-4 w-full flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-blue bg-white hover:bg-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-									disabled={loading}
-								>
-									Sign Up
-								</Link>
 							</div>
 						</form>
 					</div>
+					<div className="px-4"></div>
 				</div>
 			</div>
 		</>
