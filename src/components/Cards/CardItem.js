@@ -11,10 +11,7 @@ const CardItem = ({ event }) => {
 	const query = event?.address.split(" ").join("+");
 
 	return (
-		<li
-			key={event.id}
-			className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
-		>
+		<li className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
 			<div className="w-full flex items-center justify-between p-6 space-x-6 ">
 				<div className="flex-1 min-h-[260px]">
 					<>
