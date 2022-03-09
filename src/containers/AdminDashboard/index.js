@@ -1,18 +1,35 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 
+import { notification } from "../../services";
+import { useAuth } from "../../utils/auth";
 import { AdminHeader, CreateModal } from "../../components";
 import httpClient from "../../utils/httpClient";
 
 export default function AdminDashboard() {
 	const [open, setOpen] = useState(false);
 	const [currentModal, setCurrentModal] = useState(null);
+
 	const handleSync = async () => {
-		const response = httpClient.get("/sync");
-		if (response.status === 200) {
-			console.log(response);
+		try {
+			const response = await httpClient.get("/sync");
+
+			if (response.status === 200 && !!response.data.count) {
+				notification.success(
+					`${response.data.count} events were synced successfully`
+				);
+			}
+		} catch (error) {
+			notification.error(error.message);
 		}
 	};
+
+	const auth = useAuth();
+
+	if (auth?.user?.role?.type !== "admin" || auth?.user?.role?.id !== 3) {
+		return <Navigate to="/profile/blueprint" />;
+	}
+
 	return (
 		<div className="py-10">
 			<header>

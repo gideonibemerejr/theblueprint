@@ -1,21 +1,28 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate } from "react-router-dom";
 
-import { UserHeader } from '../../components';
+import { useAuth } from "../../utils/auth";
+import { UserHeader } from "../../components";
 
 export default function UserDashboard() {
-  return (
-    <div className='py-10'>
-      <header>
-        <div className=' mx-auto px-4 sm:px-6 lg:px-8'>
-          <UserHeader />
-        </div>
-      </header>
-      <main>
-        <div className=' mx-auto px-4 sm:px-6 lg:px-8'>
-          {/* Replace with your content */}
-          <Outlet />
-        </div>
-      </main>
-    </div>
-  );
+	const auth = useAuth();
+
+	if (auth?.user?.role?.type === "admin" || auth?.user?.role?.id === 3) {
+		return <Navigate to="/admin" />;
+	}
+
+	return (
+		<div className="py-10">
+			<header>
+				<div className=" mx-auto px-4 sm:px-6 lg:px-8">
+					<UserHeader />
+				</div>
+			</header>
+			<main>
+				<div className=" mx-auto px-4 sm:px-6 lg:px-8">
+					{/* Replace with your content */}
+					<Outlet />
+				</div>
+			</main>
+		</div>
+	);
 }

@@ -32,7 +32,7 @@ function App() {
 					<Route
 						path="admin"
 						element={
-							<RequireAuth redirectTo="/login">
+							<RequireAuth redirectTo="/profile/blueprint" withAdminRights>
 								<AdminDashboard />
 							</RequireAuth>
 						}
