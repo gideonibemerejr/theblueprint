@@ -24,7 +24,7 @@ export default function Nav() {
 								Log Out
 							</button>
 						) : (
-							<div className="w-full md:flex md:justify-end">
+							<div className="w-full flex justify-end">
 								<a
 									target="_blank"
 									rel="noopener noreferrer"
