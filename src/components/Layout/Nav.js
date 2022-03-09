@@ -24,18 +24,18 @@ export default function Nav() {
 								Log Out
 							</button>
 						) : (
-							<div className="w-full flex justify-end">
+							<div className="w-full flex items-center justify-end">
 								<a
 									target="_blank"
 									rel="noopener noreferrer"
 									href="https://www.paypal.com/paypalme/whenwherewhat?country.x=US&locale.x=en_US"
-									className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-blue-600 hover:bg-blue-50 mx-6"
+									className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-blue-600 hover:bg-blue-50 md:mx-6"
 								>
 									Donate
 								</a>
 								<Link
 									to="/register"
-									className="inline-block bg-blue py-2 px-4 border border-white rounded-md text-base font-medium text-white hover:bg-opacity-75 "
+									className="hidden md:inline-block bg-blue py-2 px-4 border border-white rounded-md text-base font-medium text-white hover:bg-opacity-75 "
 								>
 									Sign Up
 								</Link>
