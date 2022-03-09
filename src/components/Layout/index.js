@@ -1,15 +1,15 @@
-import Nav from './Nav';
+import Nav from "./Nav";
 
 const Layout = ({ children }) => {
-  return (
-    <>
-      <Nav />
-      <div className='mmx-auto sm:px-6 lg:px-8 bg-blue min-h-screen'>
-        {/* Content goes here */}
-        {children}
-      </div>
-    </>
-  );
+	return (
+		<>
+			<Nav />
+			<div className="mx-auto sm:px-6 lg:px-8 bg-blue min-h-screen">
+				{/* Content goes here */}
+				{children}
+			</div>
+		</>
+	);
 };
 
 export default Layout;
