@@ -1,7 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../utils/auth";
 
 export default function Nav() {
+	const { pathname } = useLocation();
 	const auth = useAuth();
 	const navigate = useNavigate();
 	return (
@@ -34,10 +35,10 @@ export default function Nav() {
 									Donate
 								</a>
 								<Link
-									to="/register"
+									to={pathname === "/register" ? "/login" : "/register"}
 									className="hidden md:inline-block bg-blue py-2 px-4 border border-white rounded-md text-base font-medium text-white hover:bg-opacity-75 "
 								>
-									Sign Up
+									{pathname === "/register" ? "Log In" : "Sign Up"}
 								</Link>
 							</div>
 						)}

@@ -76,8 +76,9 @@ const Login = () => {
 							className="font-medium text-white hover:text-gray-500 underline"
 							disabled={loading}
 						>
-							here.
+							here
 						</Link>
+						.
 					</p>
 					{(auth.error?.message || error) && (
 						<h2 className="text-center mt-6 text-red-500">
