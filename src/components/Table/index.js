@@ -44,7 +44,7 @@ const Table = ({ columns, data }) => {
 								rel="noreferrer"
 							>
 								<LocationMarkerIcon
-									className="w-5 h-5 text-gray-400 hover:text-blue"
+									className="w-5 h-5 text-gray-400 hover:text-primary"
 									aria-hidden="true"
 								/>
 							</a>
@@ -185,7 +185,7 @@ const Table = ({ columns, data }) => {
 													})
 												}
 												{/* <td className='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-                          <a href='#' className='text-blue hover:text-black'>
+                          <a href='#' className='text-primary hover:text-black'>
                             Edit
                           </a>
                         </td> */}
