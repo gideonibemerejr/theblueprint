@@ -48,7 +48,7 @@ export default function AdminDashboard() {
 				</div>
 			</header>
 			<main>
-				<div className=" mx-auto sm:px-6 lg:px-8">
+				<div className=" px-4 mx-auto sm:px-6 lg:px-8">
 					{/* Replace with your content */}
 					<Outlet
 						context={{

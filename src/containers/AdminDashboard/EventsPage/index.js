@@ -28,8 +28,7 @@ const EventsPage = (props) => {
 	const [pageSize] = useState(25);
 	const [currentDate, setCurrentDate] = useState(FESTIVAL_DAYS[0].value);
 	const [currentSort, setCurrentSort] = useState(SORT_OPTIONS[0].value);
-	const nextPage = () => setPage((prevState) => prevState + 1);
-	const prevPage = () => setPage((prevState) => prevState - 1);
+
 	const params = queryString.stringify(
 		pickBy({
 			populate: "*",
@@ -38,6 +37,7 @@ const EventsPage = (props) => {
 			encodeValuesOnly: true,
 		}
 	);
+
 	const { data, error } = useSWR(
 		`/blue-sheet-events?${params}&pagination[page]=${page}&pagination[pageSize]=${pageSize}${
 			currentDate !== "*"
@@ -50,6 +50,7 @@ const EventsPage = (props) => {
 	useEffect(() => {
 		if (error) notification.error(error.message);
 	}, [error]);
+
 	const { setCurrentModal, setOpen } = useOutletContext();
 
 	const columns = useMemo(
@@ -60,6 +61,7 @@ const EventsPage = (props) => {
 			),
 		[]
 	);
+
 	const handleDayFilter = (value) => {
 		if (value === FESTIVAL_DAYS[0].value) {
 			setCurrentDate(value);
@@ -105,8 +107,14 @@ const EventsPage = (props) => {
 		}
 	};
 
+	const nextPage = () => setPage((prevState) => prevState + 1);
+	const prevPage = () => setPage((prevState) => prevState - 1);
+
 	return (
 		<>
+			{/* <div className="flex flex-col items-center justify-center">
+				Dashboard Cards
+			</div> */}
 			<div className="flex sm:items-center justify-between">
 				<div className="flex flex-col sm:flex-row mt-4">
 					<div className="mb-4 sm:mr-4">
@@ -133,7 +141,7 @@ const EventsPage = (props) => {
 					/>
 				</div>
 			</div>
-			<div className="px-4 py-8 sm:px-0">
+			<div className="py-8 sm:px-0">
 				{data?.events?.length > 0 ? (
 					renderBlueprint()
 				) : (
