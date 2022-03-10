@@ -16,6 +16,7 @@ function useProvideAuth() {
 				httpClient.defaults.headers.Authorization = `Bearer ${token}`;
 				try {
 					const { data: user } = await httpClient.get("/users/me");
+
 					if (user) {
 						setUser(user);
 					}
@@ -40,11 +41,13 @@ function useProvideAuth() {
 
 			if (res && res.statusText === "OK") {
 				const {
-					data: { jwt, user },
+					data: { jwt },
 				} = res;
 
 				Cookies.set("token", jwt, { expires: 60 });
 				httpClient.defaults.headers.Authorization = `Bearer ${jwt}`;
+
+				const { data: user } = await httpClient.get("/users/me");
 
 				setUser(user);
 				callback();
@@ -61,11 +64,11 @@ function useProvideAuth() {
 		}
 	};
 
-	const logout = ({ identifier, password }, callback) => {
+	const logout = (callback) => {
 		Cookies.remove("token");
 		setUser(null);
 		delete httpClient.defaults.headers.Authorization;
-		callback();
+		callback && callback();
 	};
 
 	const register = async (user, callback) => {

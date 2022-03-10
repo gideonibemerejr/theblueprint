@@ -48,7 +48,7 @@ export default function SortDropdown({ options, onChange, style, label }) {
 										key={option.id}
 										className={({ active }) =>
 											classNames(
-												active ? "text-white bg-blue" : "text-gray-900",
+												active ? "text-white bg-primary" : "text-gray-900",
 												"cursor-default select-none relative py-2 pl-3 pr-9"
 											)
 										}

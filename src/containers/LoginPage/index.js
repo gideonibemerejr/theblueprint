@@ -60,7 +60,7 @@ const Login = () => {
 
 	return (
 		<>
-			<div className="min-h-screen flex flex-col justify-start py-12 px-6 lg:px-8 bg-blue">
+			<div className="flex flex-col justify-start py-12 px-6 lg:px-8 bg-primary">
 				<div className="sm:mx-auto sm:w-full sm:max-w-md">
 					<h2 className="mt-6 text-center text-3xl font-extrabold text-white">
 						Sign in to your account
@@ -90,7 +90,7 @@ const Login = () => {
 				</div>
 
 				<div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md">
-					<div className="bg-blue py-8 px-4 border border-white rounded-lg sm:px-10">
+					<div className="bg-primary py-8 px-4 border border-white rounded-lg sm:px-10">
 						<form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
 							<div>
 								<label
@@ -152,13 +152,13 @@ const Login = () => {
 							<div>
 								<button
 									type="submit"
-									className="group relative mt-4 w-full flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-blue bg-white hover:bg-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+									className="group relative mt-4 w-full flex justify-center py-2 px-4 border border-white rounded-md shadow-sm text-sm font-medium text-primary bg-white hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
 									disabled={loading || !isDirty || !isValid}
 								>
 									{(loading || !isDirty || !isValid) && (
 										<span className="absolute left-0 inset-y-0 flex items-center pl-3">
 											<LockClosedIcon
-												className="h-5 w-5 text-blue group-hover:text-white"
+												className="h-5 w-5 text-primary group-hover:text-white"
 												aria-hidden="true"
 											/>
 										</span>
