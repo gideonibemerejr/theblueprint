@@ -16,7 +16,15 @@ export default function Nav() {
 							</span>
 						</Link>
 					</div>
-					<div className="ml-10 space-x-4 md:w-1/2 flex justify-end">
+					<div className="ml-10 space-x-4 w-full md:w-1/2 flex justify-end">
+						<a
+							target="_blank"
+							rel="noopener noreferrer"
+							href="https://www.paypal.com/paypalme/whenwherewhat?country.x=US&locale.x=en_US"
+							className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-primary-600 hover:bg-primary-50 md:mx-6"
+						>
+							Donate
+						</a>
 						{auth.user ? (
 							<button
 								onClick={() => auth.logout(auth.user, navigate("/"))}
