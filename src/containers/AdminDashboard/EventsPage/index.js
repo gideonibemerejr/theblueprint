@@ -12,6 +12,7 @@ import {
 	Cards,
 	Pagination,
 	SortDropdown,
+	Stats,
 } from "../../../components";
 import { notification } from "../../../services";
 import { getEvents } from "../../../services/events";
@@ -115,6 +116,7 @@ const EventsPage = (props) => {
 			{/* <div className="flex flex-col items-center justify-center">
 				Dashboard Cards
 			</div> */}
+			<Stats />
 			<div className="flex sm:items-center justify-between">
 				<div className="flex flex-col sm:flex-row mt-4">
 					<div className="mb-4 sm:mr-4">

@@ -1,1 +1,2 @@
-export { ageGroupsAdapter } from './ageGroup';
+export { ageGroupsAdapter } from "./ageGroup";
+export * from "./entryCount";
