@@ -13,7 +13,7 @@ function useProvideAuth() {
 		async function loadUserFromCookies() {
 			const token = Cookies.get("token");
 			if (token) {
-				httpClient.defaults.headers.Authorization = `Bearer ${token}`;
+				httpClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 				try {
 					const { data: user } = await httpClient.get("/users/me");
 
@@ -23,7 +23,7 @@ function useProvideAuth() {
 				} catch (error) {
 					Cookies.remove("token");
 					setUser(null);
-					delete httpClient.defaults.headers.Authorization;
+					delete httpClient.defaults.headers.common["Authorization"];
 					notification.error(error.message);
 				}
 			}
@@ -44,7 +44,7 @@ function useProvideAuth() {
 			} = res;
 
 			Cookies.set("token", jwt, { expires: 60 });
-			httpClient.defaults.headers.Authorization = `Bearer ${jwt}`;
+			httpClient.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
 
 			const { data: user } = await httpClient.get("/users/me");
 
@@ -53,7 +53,7 @@ function useProvideAuth() {
 		} catch (error) {
 			Cookies.remove("token");
 			setUser(null);
-			delete httpClient.defaults.headers.Authorization;
+			delete httpClient.defaults.headers.common["Authorization"];
 			setError(error);
 			notification.error(error.message);
 		}
@@ -62,7 +62,7 @@ function useProvideAuth() {
 	const logout = (callback) => {
 		Cookies.remove("token");
 		setUser(null);
-		delete httpClient.defaults.headers.Authorization;
+		delete httpClient.defaults.headers.common["Authorization"];
 		callback && callback();
 	};
 
@@ -76,7 +76,7 @@ function useProvideAuth() {
 				} = res;
 
 				Cookies.set("token", jwt, { expires: 60 });
-				httpClient.defaults.headers.Authorization = `Bearer ${jwt}`;
+				httpClient.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
 
 				setUser(user);
 				callback();
