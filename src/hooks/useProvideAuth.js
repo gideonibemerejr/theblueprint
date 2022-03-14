@@ -39,22 +39,17 @@ function useProvideAuth() {
 				password,
 			});
 
-			if (res && res.statusText === "OK") {
-				const {
-					data: { jwt },
-				} = res;
+			const {
+				data: { jwt },
+			} = res;
 
-				Cookies.set("token", jwt, { expires: 60 });
-				httpClient.defaults.headers.Authorization = `Bearer ${jwt}`;
+			Cookies.set("token", jwt, { expires: 60 });
+			httpClient.defaults.headers.Authorization = `Bearer ${jwt}`;
 
-				const { data: user } = await httpClient.get("/users/me");
+			const { data: user } = await httpClient.get("/users/me");
 
-				setUser(user);
-				callback();
-			} else {
-				Cookies.remove("token");
-				setError(res?.error?.message || "Something went wrong");
-			}
+			setUser(user);
+			callback();
 		} catch (error) {
 			Cookies.remove("token");
 			setUser(null);
