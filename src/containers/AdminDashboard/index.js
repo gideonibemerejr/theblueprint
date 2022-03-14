@@ -26,7 +26,7 @@ export default function AdminDashboard() {
 
 	const auth = useAuth();
 
-	if (auth?.user?.role?.type !== "admin" || auth?.user?.role?.id !== 3) {
+	if (!auth?.isAdmin) {
 		return <Navigate to="/profile/blueprint" />;
 	}
 

@@ -6,7 +6,7 @@ const RequireAuth = ({ children, redirectTo, withAdminRights }) => {
 	let location = useLocation();
 
 	if (!!withAdminRights) {
-		if (auth?.user?.role?.type !== "admin" || auth?.user?.role?.id !== 3) {
+		if (!auth?.isAdmin) {
 			return <Navigate to={redirectTo} />;
 		}
 	}

@@ -6,7 +6,7 @@ import { UserHeader } from "../../components";
 export default function UserDashboard() {
 	const auth = useAuth();
 
-	if (auth?.user?.role?.type === "admin" || auth?.user?.role?.id === 3) {
+	if (auth?.isAdmin) {
 		return <Navigate to="/admin" />;
 	}
 

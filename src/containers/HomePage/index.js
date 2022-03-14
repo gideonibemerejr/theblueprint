@@ -4,11 +4,7 @@ import { useAuth } from "../../utils/auth";
 const HomePage = () => {
 	const auth = useAuth();
 
-	return auth?.user?.role?.type !== "admin" || auth?.user?.role?.id !== 3 ? (
-		<Navigate to="/profile" />
-	) : (
-		<Navigate to="/admin" />
-	);
+	return auth?.isAdmin ? <Navigate to="/admin" /> : <Navigate to="/profile" />;
 };
 
 export default HomePage;
