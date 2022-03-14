@@ -23,7 +23,7 @@ import { notification } from "../../../services";
 const BlueprintPage = () => {
 	const [view, setView] = useState(VIEW_TYPES.CARDS);
 	const [page, setPage] = useState(1);
-	const [pageSize] = useState(25);
+	const [pageSize] = useState(27);
 	const [currentDate, setCurrentDate] = useState(FESTIVAL_DAYS[0].value);
 	const [currentSort, setCurrentSort] = useState(SORT_OPTIONS[0].value);
 
