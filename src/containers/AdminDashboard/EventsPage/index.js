@@ -111,6 +111,19 @@ const EventsPage = (props) => {
 	const nextPage = () => setPage((prevState) => prevState + 1);
 	const prevPage = () => setPage((prevState) => prevState - 1);
 
+	if (!data) return <div className="w-screen h-screen bg-white"> loading</div>;
+
+	if (data?.meta?.total === 0) {
+		return (
+			<AdminEmptyState
+				setCurrentModal={setCurrentModal}
+				setOpen={setOpen}
+				type="event"
+				plural="events"
+				modalType="CREATE_EVENT"
+			/>
+		);
+	}
 	return (
 		<>
 			{/* <div className="flex flex-col items-center justify-center">
@@ -144,17 +157,7 @@ const EventsPage = (props) => {
 				</div>
 			</div>
 			<div className="py-8 sm:px-0">
-				{data?.events?.length > 0 ? (
-					renderBlueprint()
-				) : (
-					<AdminEmptyState
-						setCurrentModal={setCurrentModal}
-						setOpen={setOpen}
-						type="event"
-						plural="events"
-						modalType="CREATE_EVENT"
-					/>
-				)}
+				{data?.events?.length > 0 && renderBlueprint()}
 			</div>
 			<Pagination
 				page={page}

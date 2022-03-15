@@ -1,5 +1,7 @@
 import httpClient from "../utils/httpClient";
+
 import { ageGroupsAdapter, userCountAdapter } from "../utils/adapters";
+
 export const updateUser = (user) => {
 	return httpClient.put(`/users/${user.id}`, user);
 };

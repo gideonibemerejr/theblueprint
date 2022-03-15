@@ -13,7 +13,6 @@ function useProvideAuth() {
 		async function loadUserFromCookies() {
 			const token = Cookies.get("token");
 			if (token) {
-				httpClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 				try {
 					const { data: user } = await httpClient.get("/users/me");
 
@@ -44,7 +43,6 @@ function useProvideAuth() {
 			} = res;
 
 			Cookies.set("token", jwt, { expires: 60 });
-			httpClient.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
 
 			const { data: user } = await httpClient.get("/users/me");
 
@@ -76,7 +74,6 @@ function useProvideAuth() {
 				} = res;
 
 				Cookies.set("token", jwt, { expires: 60 });
-				httpClient.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
 
 				setUser(user);
 				callback();
